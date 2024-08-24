@@ -1,7 +1,6 @@
 <template>
   <Head title="Create Product"></Head>
   <frontend-layout>
-
     <div class="mt-4 mx-4">
       <div class="flex justify-between">
         <h5>Create Product</h5>
@@ -37,9 +36,11 @@
               </Link>
               <button
                 type="submit"
+                :disabled="form.processing"
                 class="bg-blue-500 text-white py-2 px-5 rounded mb-4"
               >
-                Save
+                <span v-if="form.processing">Creating...</span>
+                <span v-else>Create</span>
               </button>
             </div>
           </div>

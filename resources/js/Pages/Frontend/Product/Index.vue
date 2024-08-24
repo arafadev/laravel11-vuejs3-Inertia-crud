@@ -22,7 +22,7 @@
             <th class="py-2 px-4 text-left border">Name</th>
             <th class="py-2 px-4 text-left border">Price</th>
             <th class="py-2 px-4 text-left border">Action</th>
-          </tr>
+          </tr>        
         </thead>
 
         <tbody>

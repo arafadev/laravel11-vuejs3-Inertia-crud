@@ -1,7 +1,10 @@
 <template>
   <Head title="Products Page"></Head>
   <frontend-layout>
-    <div v-if="$page.props.flash.message" class="alert bg-green-200 mt-4 mx-5 px-4 py-2">
+    <div
+      v-if="$page.props.flash.message"
+      class="alert bg-green-200 mt-4 mx-5 px-4 py-2"
+    >
       {{ $page.props.flash.message }}
     </div>
 
@@ -22,7 +25,7 @@
             <th class="py-2 px-4 text-left border">Name</th>
             <th class="py-2 px-4 text-left border">Price</th>
             <th class="py-2 px-4 text-left border">Action</th>
-          </tr>        
+          </tr>
         </thead>
 
         <tbody>
@@ -44,6 +47,7 @@
               <button
                 type="submit"
                 class="px-2 oy-1 text-sm bg-red-600 text-white me-2 rounded inline-block"
+                @click="deleteProduct(item.id)"
               >
                 Delete
               </button>
@@ -57,8 +61,17 @@
 
 <script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+
 const props = defineProps({
   products: Array,
 });
+
+
+const form = useForm({});
+const deleteProduct = (productId) => {
+  if (confirm("Are you sure?")) {
+    form.delete(route('products.destroy', productId));
+  }
+};
 </script>

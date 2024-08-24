@@ -1,10 +1,13 @@
 <template>
-  <Head title="Create Product"></Head>
+  <Head title="Edit Product"></Head>
   <frontend-layout>
+    <div v-if="$page.props.flash.message" class="alert">
+      {{ $page.props.flash.message }}
+    </div>
 
     <div class="mt-4 mx-4">
       <div class="flex justify-between">
-        <h5>Create Product</h5>
+        <h5>Edit Product</h5>
         <Link
           :href="route('products.index')"
           class="bg-red-600 text-white py-2 px-5 rounded mb-4 inline-block"
@@ -12,7 +15,7 @@
         </Link>
       </div>
 
-      <form @submit.prevent="saveProduct()">
+      <form @submit.prevent="updateProduct()">
         <div class="grid grid-cols-12 gap-4">
           <div class="col-span-6">
             <div class="mb-3">
@@ -39,7 +42,7 @@
                 type="submit"
                 class="bg-blue-500 text-white py-2 px-5 rounded mb-4"
               >
-                Save
+                Update
               </button>
             </div>
           </div>
@@ -48,24 +51,26 @@
     </div>
   </frontend-layout>
 </template>
-
-<script setup>
+  
+  <script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
-defineProps({
+const props = defineProps({
   errors: Object,
+  product: Object,
 });
 
 const form = useForm({
-  name: "",
-  price: "",
+  name: props.product.name,
+  price: props.product.price,
 });
 
-const saveProduct = () => {
-  const res = form.post(route("products.store"));
+const updateProduct = () => {
+  const res = form.put(route("products.update", props.product.id));
   if (res) {
     form.reset();
   }
 };
 </script>
+  
